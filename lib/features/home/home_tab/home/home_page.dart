@@ -10,23 +10,37 @@ class HomeTabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the screen width to make our UI responsive
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 20), // Spacing before Search Bar
-              MalinaSearchBar(),
-              SizedBox(height: 14), // Spacing before Barcode Banner
-              BarcodeBanner(),
-              SizedBox(height: 20), // Spacing before Categoryy Banner
-              CategoryBanner(),
-              SizedBox(height: 20), // Spacing before Categoryy Banner
-              CategoryBanner(),
-              SizedBox(height: 30), // Spacing for bottom space
-              ComingSoonSection(),
-              SizedBox(height: 30), // Bottom padding
+              const SizedBox(height: 20), // Spacing before Search Bar
+              const MalinaSearchBar(),
+              const SizedBox(height: 14), // Spacing before Barcode Banner
+              const BarcodeBanner(),
+              const SizedBox(height: 20), // Spacing before Categoryy Banner
+              CategoryBanner(
+                title: "Едв",
+                subtitle: "Из кафе и ресторанов",
+                assetPath: "assets/images/food_banner.jpeg",
+                onTap: () {
+                  // TODO: @sultanmyrza implement
+                },
+              ),
+              const SizedBox(height: 20), // Spacing before Categoryy Banner
+              CategoryBanner(
+                title: "Бьюти",
+                subtitle: "Салоны красоты и товары",
+                assetPath: "assets/images/beauty_banner.jpeg",
+                onTap: () {
+                  // TODO: @sultanmyrza implement
+                },
+              ),
+              const SizedBox(height: 30), // Spacing for bottom space
+              const ComingSoonSection(),
+              const SizedBox(height: 30), // Bottom padding
             ],
           ),
         ),
