@@ -1,4 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Camera permission for barcode scanning -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:label="malina_consumer_app"
         android:name="${applicationName}"
