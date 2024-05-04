@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:malina_consumer_app/theme/colors.dart';
 
+import '../barcode_scanner/barcode_scanner_page.dart';
+
 class BarcodeBanner extends StatelessWidget {
   const BarcodeBanner({super.key});
 
@@ -9,7 +11,10 @@ class BarcodeBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => {
-        // TOOD: @sultanmyrza navigate to barcode scanner page
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BarcodeScannerPage()),
+        )
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
