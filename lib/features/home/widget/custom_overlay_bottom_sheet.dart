@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:malina_consumer_app/features/home/widget/custom_overlay_bottom_sheet_painter.dart';
+import 'package:malina_consumer_app/features/home/widget/malina_custom_svg_icons.dart';
 
 import '../home_page.dart';
-import 'custom_overlay_bottom_sheet_items.dart';
+import 'custom_overlay_bottom_sheet_item.dart';
 
 class CustomOverlayBottomSheet extends StatefulWidget {
   final bool isExpanded;
@@ -61,7 +62,12 @@ class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
               onTap: () {
                 widget.onSelect?.call(CartPageSubCarts.foodsCart);
               },
-              child: const TmpIcon(icon: Icons.foggy),
+              child: const CustomOverlayBottomSheetItem(
+                text: "Еда",
+                child: MalinaIcon(
+                  MalinIcons.food,
+                ),
+              ),
             ),
           ),
         ),
@@ -78,7 +84,12 @@ class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
               onTap: () {
                 widget.onSelect?.call(CartPageSubCarts.goodsCart);
               },
-              child: const TmpIcon(icon: Icons.shop_2),
+              child: const CustomOverlayBottomSheetItem(
+                text: "Товары",
+                child: MalinaIcon(
+                  MalinIcons.cosmetic,
+                ),
+              ),
             ),
           ),
         ),
