@@ -64,6 +64,7 @@ class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
               },
               child: const CustomOverlayBottomSheetItem(
                 text: "Еда",
+                badgeCount: 1,
                 child: MalinaIcon(
                   MalinIcons.food,
                 ),
