@@ -103,24 +103,26 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.white,
                     onTap: onTabTapped,
                     currentIndex: _bottomNavBarIndex,
-                    items: const [
-                      BottomNavigationBarItem(
+                    items: [
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.list),
                         label: 'Feeds',
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.favorite),
                         label: 'Favorites',
                       ),
                       BottomNavigationBarItem(
-                        icon: Icon(Icons.home),
+                        icon: _indexedStackIndex != 2
+                            ? const Icon(Icons.arrow_back)
+                            : const Icon(Icons.home),
                         label: 'Home',
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.person),
                         label: 'Profile',
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.shopping_cart),
                         label: 'Cart',
                       ),
