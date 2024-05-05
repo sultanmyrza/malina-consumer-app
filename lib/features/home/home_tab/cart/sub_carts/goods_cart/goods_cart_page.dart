@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/sub_cart_app_bar.dart';
+
 class GoodsCartPage extends StatelessWidget {
-  const GoodsCartPage({super.key});
+  final VoidCallback goBack;
+
+  const GoodsCartPage({
+    super.key,
+    required this.goBack,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(child: Center(child: Text("GoodsCartPage")));
+    return Scaffold(
+      appBar: SubCartAppBar(
+        goBack: goBack,
+        onClear: () => print("Clear action triggered"),
+      ),
+      body: const Center(child: Text("GoodsCartPage")),
+    );
+    ;
   }
 }

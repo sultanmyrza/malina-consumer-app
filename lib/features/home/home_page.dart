@@ -51,8 +51,12 @@ class _HomePageState extends State<HomePage> {
               const HomeTabPage(),
               const ProfilePage(),
               _selectedSubCart == CartPageSubCarts.foodsCart
-                  ? const FoodsCartPage()
-                  : const GoodsCartPage(),
+                  ? FoodsCartPage(
+                      goBack: () => {},
+                    )
+                  : GoodsCartPage(
+                      goBack: () => {},
+                    ),
             ], // List of pages
           ),
           Positioned(
