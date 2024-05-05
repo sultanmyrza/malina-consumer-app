@@ -14,7 +14,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 2; // default index if you want to start at Home tab
 
-  final List<Widget> _children = [
+  // Using IndexedStack to keep state of non-visible pages
+  final List<Widget> _pages = [
     FeedsPage(),
     FavoritesPage(),
     HomeTabPage(),
@@ -31,11 +32,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex, // Current index
+        children: _pages, // List of pages
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Feeds',
@@ -57,8 +61,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Cart',
           ),
         ],
-        type: BottomNavigationBarType
-            .fixed, // Fixed type ensures all icons are visible
+        type: BottomNavigationBarType.fixed, // Ensures all items are visible
       ),
     );
   }
