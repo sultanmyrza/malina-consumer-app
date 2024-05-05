@@ -5,8 +5,11 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      child: Center(child: Text("ProfilePage")),
+    return Center(
+      child: Text(
+        "Профиль",
+        style: Theme.of(context).textTheme.headlineLarge,
+      ),
     );
   }
 }

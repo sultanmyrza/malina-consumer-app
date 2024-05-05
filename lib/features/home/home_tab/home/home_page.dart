@@ -40,7 +40,7 @@ class HomeTabPage extends StatelessWidget {
               ),
               const SizedBox(height: 30), // Spacing for bottom space
               const ComingSoonSection(),
-              const SizedBox(height: 30), // Bottom padding
+              const SizedBox(height: 90), // Bottom padding to
             ],
           ),
         ),

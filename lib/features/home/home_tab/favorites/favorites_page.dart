@@ -5,8 +5,11 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
-      child: Center(child: Text("FavoritesPage")),
+    return Center(
+      child: Text(
+        "Избранное",
+        style: Theme.of(context).textTheme.headlineLarge,
+      ),
     );
   }
 }
