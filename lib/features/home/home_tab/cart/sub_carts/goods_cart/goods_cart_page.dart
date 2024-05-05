@@ -17,7 +17,11 @@ class GoodsCartPage extends StatelessWidget {
         goBack: goBack,
         onClear: () => print("Clear action triggered"),
       ),
-      body: const Center(child: Text("GoodsCartPage")),
+      body: Center(
+          child: Text(
+        "Товары",
+        style: Theme.of(context).textTheme.headlineLarge,
+      )),
     );
     ;
   }

@@ -143,12 +143,12 @@ class _HomePageState extends State<HomePage> {
                         BottomNavigationBarItem(
                           icon: MalinaIcon(MalinIcons.feed),
                           activeIcon: MalinaIcon(MalinIcons.feedActive),
-                          label: 'Feeds',
+                          label: 'Лента',
                         ),
                         BottomNavigationBarItem(
                           activeIcon: MalinaIcon(MalinIcons.favoirteActive),
                           icon: MalinaIcon(MalinIcons.favoirte),
-                          label: 'Favorites',
+                          label: 'Избранное',
                         ),
                         BottomNavigationBarItem(
                           activeIcon: MalinaIconWrapper(
@@ -162,12 +162,12 @@ class _HomePageState extends State<HomePage> {
                         BottomNavigationBarItem(
                           activeIcon: MalinaIcon(MalinIcons.profileActive),
                           icon: MalinaIcon(MalinIcons.profile),
-                          label: 'Profile',
+                          label: 'Профиль',
                         ),
                         BottomNavigationBarItem(
                           activeIcon: MalinaIcon(MalinIcons.cartActive),
                           icon: MalinaIcon(MalinIcons.cart),
-                          label: 'Cart',
+                          label: 'Корзина',
                         ),
                       ],
                       type: BottomNavigationBarType.fixed,
