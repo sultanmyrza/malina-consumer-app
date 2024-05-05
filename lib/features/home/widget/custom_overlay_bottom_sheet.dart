@@ -26,7 +26,7 @@ class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
   @override
   Widget build(BuildContext context) {
     // TODO: @sultanmyrza extract 70.0 to global constant like kBottomBarHeight
-    const double bottomNavBarBottomPosition = 70.0 - 8;
+    const double bottomNavBarBottomPosition = 70.0;
     const double spacingBetweenIcons = 8;
     const double iconHeight = 60;
 
