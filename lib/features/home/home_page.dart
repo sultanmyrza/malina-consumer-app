@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/food_cart/food_cart_page.dart';
 import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/goods_cart/goods_cart_page.dart';
 import 'package:malina_consumer_app/features/home/home_tab/home/home_page.dart';
 import 'package:malina_consumer_app/features/home/widget/custom_overlay_bottom_sheet.dart';
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
               const HomeTabPage(),
               const ProfilePage(),
               _selectedSubCart == CartPageSubCarts.foodsCart
-                  ? const GoodsCartPage()
+                  ? const FoodsCartPage()
                   : const GoodsCartPage(),
             ], // List of pages
           ),
