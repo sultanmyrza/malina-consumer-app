@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/goods_cart/goods_cart_page.dart';
 import 'package:malina_consumer_app/features/home/home_tab/home/home_page.dart';
+import 'package:malina_consumer_app/features/home/widget/custom_overlay_bottom_sheet.dart';
 
 import 'home_tab/favorites/favorites_page.dart';
 import 'home_tab/feeds/feeds_page.dart';
@@ -23,9 +24,16 @@ class _HomePageState extends State<HomePage> {
 
   void onTabTapped(int index) {
     setState(() {
-      // TODO: @sultanmyrza implement logic
-      _indexedStackIndex = index;
-      _bottomNavBarIndex = index;
+      if (index != 4) {
+        _indexedStackIndex = index;
+        _bottomNavBarIndex = index;
+        _bottomNavCartItemExpanded = false;
+      } else if (_bottomNavBarIndex != 4) {
+        _bottomNavBarIndex = index;
+        _bottomNavCartItemExpanded = true;
+      } else {
+        _bottomNavCartItemExpanded = !_bottomNavCartItemExpanded;
+      }
     });
   }
 
@@ -75,10 +83,25 @@ class _HomePageState extends State<HomePage> {
                   label: 'Cart',
                 ),
               ],
-              type: BottomNavigationBarType
-                  .fixed, // Ensures all items are visible
+              type: BottomNavigationBarType.fixed,
             ),
           ),
+          CustomOverlayBottomSheet(
+            isExpanded: _bottomNavCartItemExpanded,
+            onSelect: (value) {
+              setState(() {
+                _selectedSubCart = value;
+                _indexedStackIndex = _bottomNavBarIndex;
+                _bottomNavCartItemExpanded = false;
+              });
+            },
+            onDismiss: () => {
+              setState(() {
+                _bottomNavCartItemExpanded = false;
+                _bottomNavBarIndex = _indexedStackIndex;
+              }),
+            },
+          )
         ],
       ),
     );
