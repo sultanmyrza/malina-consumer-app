@@ -49,107 +49,141 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<bool> _onBackPressed() async {
+    if (_bottomNavCartItemExpanded) {
+      setState(() {
+        _bottomNavCartItemExpanded = false;
+        // Check if currently viewing the cart page itself (index 4)
+        if (_bottomNavBarIndex == 4) {
+          // If yes, revert to the last non-cart index
+          _indexedStackIndex = _lastNonCartIndex;
+          _bottomNavBarIndex = _lastNonCartIndex;
+        }
+      });
+      return false; // Handle the back press internally
+    } else if (_indexedStackIndex != 2) {
+      if (_indexedStackIndex == 4) {
+        // If currently on the cart page, navigate back to the previous tab
+        setState(() {
+          _indexedStackIndex = _lastNonCartIndex;
+          _bottomNavBarIndex = _lastNonCartIndex;
+        });
+      } else {
+        // Revert to the Home tab if not on the Home tab and not handling the cart
+        setState(() {
+          _indexedStackIndex = 2;
+          _bottomNavBarIndex = 2;
+        });
+      }
+      return false; // Prevent default action of exiting the app
+    }
+    return true; // Allow back press to be handled by system (exit app)
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          IndexedStack(
-            index: _indexedStackIndex, // Current index
-            children: [
-              const FeedsPage(),
-              const FavoritesPage(),
-              const HomeTabPage(),
-              const ProfilePage(),
-              _selectedSubCart == CartPageSubCarts.foodsCart
-                  ? FoodsCartPage(goBack: _exitFromCartTab)
-                  : GoodsCartPage(goBack: _exitFromCartTab),
-            ], // List of pages
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Theme(
-              data: ThemeData(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              ),
-              child: Container(
-                decoration: const ShapeDecoration(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            IndexedStack(
+              index: _indexedStackIndex, // Current index
+              children: [
+                const FeedsPage(),
+                const FavoritesPage(),
+                const HomeTabPage(),
+                const ProfilePage(),
+                _selectedSubCart == CartPageSubCarts.foodsCart
+                    ? FoodsCartPage(goBack: _exitFromCartTab)
+                    : GoodsCartPage(goBack: _exitFromCartTab),
+              ], // List of pages
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Theme(
+                data: ThemeData(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                ),
+                child: Container(
+                  decoration: const ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
+                      ),
+                    ),
+                    shadows: [
+                      BoxShadow(
+                        color: Color(0x33000000),
+                        blurRadius: 30,
+                        offset: Offset(15, 0),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  height: 70,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12),
                     ),
-                  ),
-                  shadows: [
-                    BoxShadow(
-                      color: Color(0x33000000),
-                      blurRadius: 30,
-                      offset: Offset(15, 0),
-                      spreadRadius: 0,
-                    )
-                  ],
-                ),
-                height: 70,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                  ),
-                  child: BottomNavigationBar(
-                    backgroundColor: Colors.white,
-                    onTap: onTabTapped,
-                    currentIndex: _bottomNavBarIndex,
-                    items: [
-                      const BottomNavigationBarItem(
-                        icon: Icon(Icons.list),
-                        label: 'Feeds',
-                      ),
-                      const BottomNavigationBarItem(
-                        icon: Icon(Icons.favorite),
-                        label: 'Favorites',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: _indexedStackIndex != 2
-                            ? const Icon(Icons.arrow_back)
-                            : const Icon(Icons.home),
-                        label: 'Home',
-                      ),
-                      const BottomNavigationBarItem(
-                        icon: Icon(Icons.person),
-                        label: 'Profile',
-                      ),
-                      const BottomNavigationBarItem(
-                        icon: Icon(Icons.shopping_cart),
-                        label: 'Cart',
-                      ),
-                    ],
-                    type: BottomNavigationBarType.fixed,
+                    child: BottomNavigationBar(
+                      backgroundColor: Colors.white,
+                      onTap: onTabTapped,
+                      currentIndex: _bottomNavBarIndex,
+                      items: [
+                        const BottomNavigationBarItem(
+                          icon: Icon(Icons.list),
+                          label: 'Feeds',
+                        ),
+                        const BottomNavigationBarItem(
+                          icon: Icon(Icons.favorite),
+                          label: 'Favorites',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: _indexedStackIndex != 2
+                              ? const Icon(Icons.arrow_back)
+                              : const Icon(Icons.home),
+                          label: 'Home',
+                        ),
+                        const BottomNavigationBarItem(
+                          icon: Icon(Icons.person),
+                          label: 'Profile',
+                        ),
+                        const BottomNavigationBarItem(
+                          icon: Icon(Icons.shopping_cart),
+                          label: 'Cart',
+                        ),
+                      ],
+                      type: BottomNavigationBarType.fixed,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          CustomOverlayBottomSheet(
-            isExpanded: _bottomNavCartItemExpanded,
-            onSelect: (value) {
-              setState(() {
-                _selectedSubCart = value;
-                _indexedStackIndex = _bottomNavBarIndex;
-                _bottomNavCartItemExpanded = false;
-              });
-            },
-            onDismiss: () => {
-              setState(() {
-                _bottomNavCartItemExpanded = false;
-                _bottomNavBarIndex = _indexedStackIndex;
-              }),
-            },
-          )
-        ],
+            CustomOverlayBottomSheet(
+              isExpanded: _bottomNavCartItemExpanded,
+              onSelect: (value) {
+                setState(() {
+                  _selectedSubCart = value;
+                  _indexedStackIndex = _bottomNavBarIndex;
+                  _bottomNavCartItemExpanded = false;
+                });
+              },
+              onDismiss: () => {
+                setState(() {
+                  _bottomNavCartItemExpanded = false;
+                  _bottomNavBarIndex = _indexedStackIndex;
+                }),
+              },
+            )
+          ],
+        ),
       ),
     );
   }
