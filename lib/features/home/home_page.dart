@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/goods_cart/goods_cart_page.dart';
 import 'package:malina_consumer_app/features/home/home_tab/home/home_page.dart';
 
-import 'home_tab/cart/cart_page.dart';
 import 'home_tab/favorites/favorites_page.dart';
 import 'home_tab/feeds/feeds_page.dart';
 import 'home_tab/profile/profile_page.dart';
+
+// TOOO: @sultanmyrza move to relevant file.
+enum CartPageSubCarts { foodsCart, goodsCart }
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,20 +15,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 2; // default index if you want to start at Home tab
+  var _indexedStackIndex = 2; // default index if you want to start at Home tab
+  var _bottomNavBarIndex = 2;
 
-  // Using IndexedStack to keep state of non-visible pages
-  final List<Widget> _pages = [
-    FeedsPage(),
-    FavoritesPage(),
-    HomeTabPage(),
-    ProfilePage(),
-    CartPage(),
-  ];
+  var _selectedSubCart = CartPageSubCarts.foodsCart;
+  var _bottomNavCartItemExpanded = false;
 
   void onTabTapped(int index) {
     setState(() {
-      _currentIndex = index;
+      // TODO: @sultanmyrza implement logic
+      _indexedStackIndex = index;
+      _bottomNavBarIndex = index;
     });
   }
 
@@ -35,8 +35,16 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           IndexedStack(
-            index: _currentIndex, // Current index
-            children: _pages, // List of pages
+            index: _indexedStackIndex, // Current index
+            children: [
+              const FeedsPage(),
+              const FavoritesPage(),
+              const HomeTabPage(),
+              const ProfilePage(),
+              _selectedSubCart == CartPageSubCarts.foodsCart
+                  ? const GoodsCartPage()
+                  : const GoodsCartPage(),
+            ], // List of pages
           ),
           Positioned(
             left: 0,
@@ -44,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             bottom: 0,
             child: BottomNavigationBar(
               onTap: onTabTapped,
-              currentIndex: _currentIndex,
+              currentIndex: _bottomNavBarIndex,
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.list),
