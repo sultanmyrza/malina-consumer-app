@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var _indexedStackIndex = 2; // default index if you want to start at Home tab
   var _bottomNavBarIndex = 2;
+  var _lastNonCartIndex = 2; // To track last tab index before moving to cart
 
   var _selectedSubCart = CartPageSubCarts.foodsCart;
   var _bottomNavCartItemExpanded = false;
@@ -26,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   void onTabTapped(int index) {
     setState(() {
       if (index != 4) {
+        _lastNonCartIndex = index;
         _indexedStackIndex = index;
         _bottomNavBarIndex = index;
         _bottomNavCartItemExpanded = false;
@@ -35,6 +37,15 @@ class _HomePageState extends State<HomePage> {
       } else {
         _bottomNavCartItemExpanded = !_bottomNavCartItemExpanded;
       }
+    });
+  }
+
+  void _exitFromCartTab() {
+    setState(() {
+      // Reset the indices to the last non-cart index
+      _indexedStackIndex = _lastNonCartIndex;
+      _bottomNavBarIndex = _lastNonCartIndex;
+      _bottomNavCartItemExpanded = false;
     });
   }
 
@@ -51,12 +62,8 @@ class _HomePageState extends State<HomePage> {
               const HomeTabPage(),
               const ProfilePage(),
               _selectedSubCart == CartPageSubCarts.foodsCart
-                  ? FoodsCartPage(
-                      goBack: () => {},
-                    )
-                  : GoodsCartPage(
-                      goBack: () => {},
-                    ),
+                  ? FoodsCartPage(goBack: _exitFromCartTab)
+                  : GoodsCartPage(goBack: _exitFromCartTab),
             ], // List of pages
           ),
           Positioned(
