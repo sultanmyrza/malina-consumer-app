@@ -3,6 +3,8 @@ import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/food_c
 import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/goods_cart/goods_cart_page.dart';
 import 'package:malina_consumer_app/features/home/home_tab/home/home_page.dart';
 import 'package:malina_consumer_app/features/home/widget/custom_overlay_bottom_sheet.dart';
+import 'package:malina_consumer_app/features/home/widget/malina_custom_svg_icons.dart';
+import 'package:malina_consumer_app/theme/colors.dart';
 
 import 'home_tab/favorites/favorites_page.dart';
 import 'home_tab/feeds/feeds_page.dart';
@@ -134,29 +136,37 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: BottomNavigationBar(
                       backgroundColor: Colors.white,
+                      selectedItemColor: AppColors.malina,
                       onTap: onTabTapped,
                       currentIndex: _bottomNavBarIndex,
-                      items: [
-                        const BottomNavigationBarItem(
-                          icon: Icon(Icons.list),
+                      items: const [
+                        BottomNavigationBarItem(
+                          icon: MalinaIcon(MalinIcons.feed),
+                          activeIcon: MalinaIcon(MalinIcons.feedActive),
                           label: 'Feeds',
                         ),
-                        const BottomNavigationBarItem(
-                          icon: Icon(Icons.favorite),
+                        BottomNavigationBarItem(
+                          activeIcon: MalinaIcon(MalinIcons.favoirteActive),
+                          icon: MalinaIcon(MalinIcons.favoirte),
                           label: 'Favorites',
                         ),
                         BottomNavigationBarItem(
-                          icon: _indexedStackIndex != 2
-                              ? const Icon(Icons.arrow_back)
-                              : const Icon(Icons.home),
-                          label: 'Home',
+                          activeIcon: MalinaIconWrapper(
+                            child: MalinaIcon(MalinIcons.homeActive),
+                          ),
+                          icon: MalinaIconWrapper(
+                            child: MalinaIcon(MalinIcons.home),
+                          ),
+                          label: "",
                         ),
-                        const BottomNavigationBarItem(
-                          icon: Icon(Icons.person),
+                        BottomNavigationBarItem(
+                          activeIcon: MalinaIcon(MalinIcons.profileActive),
+                          icon: MalinaIcon(MalinIcons.profile),
                           label: 'Profile',
                         ),
-                        const BottomNavigationBarItem(
-                          icon: Icon(Icons.shopping_cart),
+                        BottomNavigationBarItem(
+                          activeIcon: MalinaIcon(MalinIcons.cartActive),
+                          icon: MalinaIcon(MalinIcons.cart),
                           label: 'Cart',
                         ),
                       ],
