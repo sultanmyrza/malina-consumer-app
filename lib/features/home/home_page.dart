@@ -58,32 +58,65 @@ class _HomePageState extends State<HomePage> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: BottomNavigationBar(
-              onTap: onTabTapped,
-              currentIndex: _bottomNavBarIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.list),
-                  label: 'Feeds',
+            child: Theme(
+              data: ThemeData(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
+              child: Container(
+                decoration: const ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x33000000),
+                      blurRadius: 30,
+                      offset: Offset(15, 0),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'Favorites',
+                height: 70,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                  child: BottomNavigationBar(
+                    backgroundColor: Colors.white,
+                    onTap: onTabTapped,
+                    currentIndex: _bottomNavBarIndex,
+                    items: const [
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.list),
+                        label: 'Feeds',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.favorite),
+                        label: 'Favorites',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.home),
+                        label: 'Home',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.person),
+                        label: 'Profile',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.shopping_cart),
+                        label: 'Cart',
+                      ),
+                    ],
+                    type: BottomNavigationBarType.fixed,
+                  ),
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart),
-                  label: 'Cart',
-                ),
-              ],
-              type: BottomNavigationBarType.fixed,
+              ),
             ),
           ),
           CustomOverlayBottomSheet(
