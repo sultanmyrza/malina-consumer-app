@@ -24,7 +24,8 @@ class CustomOverlayBottomSheet extends StatefulWidget {
 class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    const double bottomNavBarHeight = 70.0;
+    // TODO: @sultanmyrza extract 70.0 to global constant like kBottomBarHeight
+    const double bottomNavBarBottomPosition = 70.0 - 8;
     const double spacingBetweenIcons = 8;
     const double iconHeight = 60;
 
@@ -41,7 +42,7 @@ class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
           ),
         AnimatedPositioned(
           duration: const Duration(milliseconds: 250),
-          bottom: widget.isExpanded ? bottomNavBarHeight : -200,
+          bottom: widget.isExpanded ? bottomNavBarBottomPosition : -200,
           right: 8,
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 250),
@@ -51,7 +52,7 @@ class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
         ),
         AnimatedPositioned(
           duration: const Duration(milliseconds: 250),
-          bottom: widget.isExpanded ? bottomNavBarHeight : -200,
+          bottom: widget.isExpanded ? bottomNavBarBottomPosition : -200,
           right: 12.5,
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 250),
@@ -67,7 +68,7 @@ class _CustomOverlayBottomSheetState extends State<CustomOverlayBottomSheet> {
         AnimatedPositioned(
           duration: const Duration(milliseconds: 250),
           bottom: widget.isExpanded
-              ? bottomNavBarHeight + iconHeight + spacingBetweenIcons
+              ? bottomNavBarBottomPosition + iconHeight + spacingBetweenIcons
               : -200,
           right: 12.5,
           child: AnimatedOpacity(
