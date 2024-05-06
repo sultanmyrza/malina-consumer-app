@@ -41,9 +41,8 @@ class _FoodsCartPageState extends State<FoodsCartPage> {
             if (selectedTab == SubCartTab.delivery)
               CartGroup(
                 header: "Bellagio Coffee",
-                items: [
-                  sampleCartItems[0],
-                ],
+                items: [sampleCartItems[0]],
+                canAddToGroup: true,
               ),
             const SizedBox(height: 200)
           ],
