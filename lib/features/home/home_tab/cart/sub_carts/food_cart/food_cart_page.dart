@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../sub_carts_sample_items.dart';
+import '../widgets/cart_group.dart';
 import '../widgets/sub_cart_app_bar.dart';
+import '../widgets/sub_cart_tab.dart';
 
-class FoodsCartPage extends StatelessWidget {
+enum SubCartTab { delivery, pickup }
+
+class FoodsCartPage extends StatefulWidget {
   final VoidCallback goBack;
 
   const FoodsCartPage({
@@ -11,16 +16,37 @@ class FoodsCartPage extends StatelessWidget {
   });
 
   @override
+  State<FoodsCartPage> createState() => _FoodsCartPageState();
+}
+
+class _FoodsCartPageState extends State<FoodsCartPage> {
+  var selectedTab = SubCartTab.delivery;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SubCartAppBar(
-        goBack: goBack,
+        goBack: widget.goBack,
         onClear: () => print("Clear action triggered"),
       ),
-      body: Center(
-        child: Text(
-          "Еда",
-          style: Theme.of(context).textTheme.headlineLarge,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: ListView(
+          children: [
+            const SizedBox(height: 12),
+            SubCartTabBar(
+              selectedTab: selectedTab,
+              onPressed: (value) => setState(() => selectedTab = value),
+            ),
+            const SizedBox(height: 20),
+            if (selectedTab == SubCartTab.delivery)
+              CartGroup(
+                header: "Bellagio Coffee",
+                items: [
+                  sampleCartItems[0],
+                ],
+              ),
+            const SizedBox(height: 200)
+          ],
         ),
       ),
     );
