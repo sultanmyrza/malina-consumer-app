@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/goods_cart/goods_cart_page.dart';
 import 'package:malina_consumer_app/theme/colors.dart';
+
+import '../food_cart/food_cart_page.dart';
 
 class SubCartTabBar extends StatelessWidget {
   final SubCartTab selectedTab;
@@ -14,27 +15,24 @@ class SubCartTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 21),
-      child: Row(
-        children: [
-          Expanded(
-            child: _ToggledStyleButton(
-              label: "Доставка",
-              isSelected: selectedTab == SubCartTab.delivery,
-              onPressed: () => onPressed(SubCartTab.delivery),
-            ),
+    return Row(
+      children: [
+        Expanded(
+          child: _ToggledStyleButton(
+            label: "Доставка",
+            isSelected: selectedTab == SubCartTab.delivery,
+            onPressed: () => onPressed(SubCartTab.delivery),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: _ToggledStyleButton(
-              label: "В заведении",
-              isSelected: selectedTab == SubCartTab.pickup,
-              onPressed: () => onPressed(SubCartTab.pickup),
-            ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: _ToggledStyleButton(
+            label: "В заведении",
+            isSelected: selectedTab == SubCartTab.pickup,
+            onPressed: () => onPressed(SubCartTab.pickup),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
