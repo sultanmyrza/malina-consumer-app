@@ -37,7 +37,7 @@ class MalinaSearchBar extends StatelessWidget {
               style: TextStyle(
                 color: Color(0xFF828282),
                 fontSize: 14,
-                fontFamily: 'SF Pro Display', // @TODO: @sultanmyrza load fonts
+                fontFamily: 'SF Pro Display',
                 fontWeight: FontWeight.w400,
                 height: 0.09,
               ),

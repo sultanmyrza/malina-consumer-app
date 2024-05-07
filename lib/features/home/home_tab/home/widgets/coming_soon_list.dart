@@ -13,7 +13,7 @@ class ComingSoonHeader extends StatelessWidget {
         style: TextStyle(
           color: Colors.black,
           fontSize: 17,
-          fontFamily: 'SF Pro Display', // TODO: @sultanmyrza load fonts
+          fontFamily: 'SF Pro Display',
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -57,7 +57,7 @@ class ComingSoonListItem extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 12,
-              fontFamily: 'SF Pro Display', // TOOD: @sultanmyrza load fonts
+              fontFamily: 'SF Pro Display',
               fontWeight: FontWeight.w400,
             ),
           ),
