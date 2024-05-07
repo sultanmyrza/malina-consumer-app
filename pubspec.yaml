@@ -65,6 +65,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -91,6 +92,23 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: SF Pro Display
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Regular.otf
+          weight: 400
+        - asset: assets/fonts/SF-Pro-Display-Medium.otf
+          weight: 500
+        - asset: assets/fonts/SF-Pro-Display-Semibold.otf
+          weight: 600
+        - asset: assets/fonts/SF-Pro-Display-Bold.otf
+          weight: 700
+        - asset: assets/fonts/SF-Pro-Display-Light.otf
+          weight: 300
+        - asset: assets/fonts/SF-Pro-Display-Thin.otf
+          weight: 100
+        - asset: assets/fonts/SF-Pro-Display-Black.otf
+          weight: 900
 
 flutter_native_splash:
   android: true
