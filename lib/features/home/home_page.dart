@@ -1,0 +1,200 @@
+import 'package:flutter/material.dart';
+import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/food_cart/food_cart_page.dart';
+import 'package:malina_consumer_app/features/home/home_tab/cart/sub_carts/goods_cart/goods_cart_page.dart';
+import 'package:malina_consumer_app/features/home/home_tab/home/home_page.dart';
+import 'package:malina_consumer_app/features/home/widget/custom_overlay_bottom_sheet.dart';
+import 'package:malina_consumer_app/features/home/widget/malina_custom_svg_icons.dart';
+import 'package:malina_consumer_app/theme/colors.dart';
+
+import 'home_tab/favorites/favorites_page.dart';
+import 'home_tab/feeds/feeds_page.dart';
+import 'home_tab/profile/profile_page.dart';
+
+// TOOO: @sultanmyrza move to relevant file.
+enum CartPageSubCarts { foodsCart, goodsCart }
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var _indexedStackIndex = 2; // default index if you want to start at Home tab
+  var _bottomNavBarIndex = 2;
+  var _lastNonCartIndex = 2; // To track last tab index before moving to cart
+
+  var _selectedSubCart = CartPageSubCarts.foodsCart;
+  var _bottomNavCartItemExpanded = false;
+
+  void onTabTapped(int index) {
+    setState(() {
+      if (index != 4) {
+        _lastNonCartIndex = index;
+        _indexedStackIndex = index;
+        _bottomNavBarIndex = index;
+        _bottomNavCartItemExpanded = false;
+      } else if (_bottomNavBarIndex != 4) {
+        _bottomNavBarIndex = index;
+        _bottomNavCartItemExpanded = true;
+      } else {
+        _bottomNavCartItemExpanded = !_bottomNavCartItemExpanded;
+      }
+    });
+  }
+
+  void _exitFromCartTab() {
+    setState(() {
+      // Reset the indices to the last non-cart index
+      _indexedStackIndex = _lastNonCartIndex;
+      _bottomNavBarIndex = _lastNonCartIndex;
+      _bottomNavCartItemExpanded = false;
+    });
+  }
+
+  Future<bool> _onBackPressed() async {
+    if (_bottomNavCartItemExpanded) {
+      setState(() {
+        _bottomNavCartItemExpanded = false;
+        // Check if currently viewing the cart page itself (index 4)
+        if (_bottomNavBarIndex == 4) {
+          // If yes, revert to the last non-cart index
+          _indexedStackIndex = _lastNonCartIndex;
+          _bottomNavBarIndex = _lastNonCartIndex;
+        }
+      });
+      return false; // Handle the back press internally
+    } else if (_indexedStackIndex != 2) {
+      if (_indexedStackIndex == 4) {
+        // If currently on the cart page, navigate back to the previous tab
+        setState(() {
+          _indexedStackIndex = _lastNonCartIndex;
+          _bottomNavBarIndex = _lastNonCartIndex;
+        });
+      } else {
+        // Revert to the Home tab if not on the Home tab and not handling the cart
+        setState(() {
+          _indexedStackIndex = 2;
+          _bottomNavBarIndex = 2;
+        });
+      }
+      return false; // Prevent default action of exiting the app
+    }
+    return true; // Allow back press to be handled by system (exit app)
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            IndexedStack(
+              index: _indexedStackIndex, // Current index
+              children: [
+                const FeedsPage(),
+                const FavoritesPage(),
+                const HomeTabPage(),
+                const ProfilePage(),
+                _selectedSubCart == CartPageSubCarts.foodsCart
+                    ? FoodsCartPage(goBack: _exitFromCartTab)
+                    : GoodsCartPage(goBack: _exitFromCartTab),
+              ], // List of pages
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Theme(
+                data: ThemeData(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                ),
+                child: Container(
+                  decoration: const ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
+                      ),
+                    ),
+                    shadows: [
+                      BoxShadow(
+                        color: Color(0x33000000),
+                        blurRadius: 30,
+                        offset: Offset(15, 0),
+                        spreadRadius: 0,
+                      )
+                    ],
+                  ),
+                  height: 70,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
+                    child: BottomNavigationBar(
+                      backgroundColor: Colors.white,
+                      selectedItemColor: AppColors.malina,
+                      onTap: onTabTapped,
+                      currentIndex: _bottomNavBarIndex,
+                      items: const [
+                        BottomNavigationBarItem(
+                          icon: MalinaIcon(MalinIcons.feed),
+                          activeIcon: MalinaIcon(MalinIcons.feedActive),
+                          label: 'Лента',
+                        ),
+                        BottomNavigationBarItem(
+                          activeIcon: MalinaIcon(MalinIcons.favoirteActive),
+                          icon: MalinaIcon(MalinIcons.favoirte),
+                          label: 'Избранное',
+                        ),
+                        BottomNavigationBarItem(
+                          activeIcon: MalinaIconWrapper(
+                            child: MalinaIcon(MalinIcons.homeActive),
+                          ),
+                          icon: MalinaIconWrapper(
+                            child: MalinaIcon(MalinIcons.home),
+                          ),
+                          label: "",
+                        ),
+                        BottomNavigationBarItem(
+                          activeIcon: MalinaIcon(MalinIcons.profileActive),
+                          icon: MalinaIcon(MalinIcons.profile),
+                          label: 'Профиль',
+                        ),
+                        BottomNavigationBarItem(
+                          activeIcon: MalinaIcon(MalinIcons.cartActive),
+                          icon: MalinaIcon(MalinIcons.cart),
+                          label: 'Корзина',
+                        ),
+                      ],
+                      type: BottomNavigationBarType.fixed,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            CustomOverlayBottomSheet(
+              isExpanded: _bottomNavCartItemExpanded,
+              onSelect: (value) {
+                setState(() {
+                  _selectedSubCart = value;
+                  _indexedStackIndex = _bottomNavBarIndex;
+                  _bottomNavCartItemExpanded = false;
+                });
+              },
+              onDismiss: () => {
+                setState(() {
+                  _bottomNavCartItemExpanded = false;
+                  _bottomNavBarIndex = _indexedStackIndex;
+                }),
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

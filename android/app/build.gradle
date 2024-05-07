@@ -45,7 +45,8 @@ android {
         applicationId "xyz.wodeapp.malina_consumer_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        // TODO: @sultanmyrza use dynamic value example: localProperties.getProperty('flutter.minSdkVersion')?.toInteger() ?: 21
+        minSdkVersion 21 
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
