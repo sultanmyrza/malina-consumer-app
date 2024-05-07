@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   mobile_scanner: ^5.1.0
   rxdart: ^0.27.7
+  flutter_native_splash: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -90,3 +91,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  color: "#f72055"
+  image: "assets/images/splashLogoMalina.png"
+  android_12:
+    color: "#f72055"
+    image: "assets/images/splashLogoMalina.png"
+  
