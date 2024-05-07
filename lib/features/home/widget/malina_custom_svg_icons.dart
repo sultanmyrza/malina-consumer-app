@@ -14,6 +14,8 @@ enum MalinIcons {
   cartActive,
   food,
   cosmetic,
+  cartGroupAdd,
+  delete
 }
 
 class MalinaIcon extends StatelessWidget {
@@ -50,6 +52,10 @@ class MalinaIcon extends StatelessWidget {
         return SvgPicture.asset('assets/icons/food.svg');
       case MalinIcons.cosmetic:
         return SvgPicture.asset('assets/icons/cosmetic.svg');
+      case MalinIcons.cartGroupAdd:
+        return SvgPicture.asset('assets/icons/cartGroupAdd.svg');
+      case MalinIcons.delete:
+        return SvgPicture.asset('assets/icons/delete.svg');
     }
   }
 }
